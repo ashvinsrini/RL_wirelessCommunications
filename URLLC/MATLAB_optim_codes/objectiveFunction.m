@@ -327,6 +327,8 @@ function cost_mean = objectiveFunction_alternate21(allocMatrix,h_prev_ts, delta,
     
     %allocMatrix = descritize_alloc_matrix(allocMatrix, B, N);
     all_SINRs = zeros(B,N,U);
+    cost_SINR_frac = 1e-30;
+    cost_SINR_offset = 1e-6;
     for serving_BS_ind = 1:B
         all_SINRs(serving_BS_ind,:,:) = computeSINR(allocMatrix, time_slot, B, U, N, serving_BS_ind, h_prev_ts, delta);
     end
@@ -362,7 +364,9 @@ function cost_mean = objectiveFunction_alternate21(allocMatrix,h_prev_ts, delta,
     end
     % adding constraints for the channel allocation matrix trying out
     % different penalizing constants%%%%%%%%%%%%%%%%%%%
-    cost_mean = cost*1e-30 +1e-6; 
+    %%%%%%%%%%%%%%adding constraints on the variance and modelling such that SINR is 
+    %%%%%%%%%%%%%%%%%%% typically in the range between -10 dB to 20 dB
+    cost_mean = cost*cost_SINR_frac +cost_SINR_offset; 
     % 
     % % Constraint for the allocation matrix structure
     % allocSum = sum(allocMatrix, 3);
@@ -408,6 +412,8 @@ function cost_var = objectiveFunction_alternate4(allocMatrix,h_prev_ts, delta, t
     
     %allocMatrix = descritize_alloc_matrix(allocMatrix, B, N);
     all_SINRs = zeros(B,N,U);
+    cost_SINR_frac = 1e-30;
+    cost_SINR_offset = 1e-8;
     for serving_BS_ind = 1:B
         all_SINRs(serving_BS_ind,:,:) = computeSINR(allocMatrix, time_slot, B, U, N, serving_BS_ind, h_prev_ts, delta);
     end
@@ -441,8 +447,8 @@ function cost_var = objectiveFunction_alternate4(allocMatrix,h_prev_ts, delta, t
     if any(p_out > Po)
         cost = cost + 1e5; % Penalty for violation
     end
-    %%%%%%%%% adding constraints on the variance ###########
-    cost_var = cost*1e-30+1e-8;
+    %%%%%%%%% adding constraints on the variance and modelling such that SINR is typically in the range between -10 dB to 20 dB ###########
+    cost_var = cost*cost_SINR_frac+cost_SINR_offset;
     % 
     % % Constraint for the allocation matrix structure
     % allocSum = sum(allocMatrix, 3);

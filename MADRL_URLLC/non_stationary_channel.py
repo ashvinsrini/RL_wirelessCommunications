@@ -232,7 +232,7 @@ def return_channel_coefficients(t, fd_max, tau, all_x_cords, all_y_cords, UEs_pe
     PL_loss = 31.84+21.50*np.log10(TxRxdistances)+ 19*np.log10(f_c*1e-9)
     PL = 33+25.5*np.log10(TxRxdistances)+ 20*np.log(f_c*1e-9)
     pathlossesdB = np.max((PL,PL_loss), axis = 0)
-    pathGains = np.power(10, pathlossesdB/30)    
+    pathGains = np.power(10, pathlossesdB/10)    
     
     
     

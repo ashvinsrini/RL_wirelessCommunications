@@ -12,7 +12,9 @@ _non_stationary_channel.py_ will generate a typical factory indoor environment w
 path loss experienced data is saved. 
 
 _Env.py_ contains the environment class
+
 _model2_LSTM.py_ contains the actor, critic, state processing networks
+
 _Main.py_ contains the training script invoking the environment and actor, critic, SPN networks. 
 
 Shield: [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]

@@ -68,7 +68,7 @@ if __name__ == "__main__":
     LR_CRITIC = 0.001
     #N_ACTIONS = 51  # Number of discrete actions
     K = 1  # Number of neighbors for KNN
-    num_episodes, time_steps = 20, 128
+    num_episodes, time_steps = 100, 128
     p_0 = 1e-5
     lamda_1 = 1000
     

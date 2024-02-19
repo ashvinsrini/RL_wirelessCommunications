@@ -68,8 +68,9 @@ if __name__ == "__main__":
     LR_CRITIC = 0.001
     #N_ACTIONS = 51  # Number of discrete actions
     K = 1  # Number of neighbors for KNN
-    num_episodes, time_steps = 100, 128
-    
+    num_episodes, time_steps = 20, 128
+    p_0 = 1e-5
+    lamda_1 = 1000
     
     ######## Load the path gains and fading gains, if not found then generate by Non stationary channel script ###########
     TimeSequences= np.load('TimeSequences.npy')
@@ -303,9 +304,17 @@ if __name__ == "__main__":
         epi_c_losses.append(loss_critic.detach().numpy())
         print('epoch',epi,'rewards', total_reward/t, 'actor_loss', loss_actor.detach().numpy(), 'cricitc_loss', loss_critic.detach().numpy())
             #pass
-
-    plt.plot(np.array(epi_rewards)/time_steps)
-
-
-
-
+    epi_rewards = np.array(epi_rewards)/time_steps
+    plt.figure(1)
+    plt.plot(epi_rewards)
+    plt.grid()
+    plt.title('rewards vs epochs')
+    plt.savefig('./imgs/rewards.png', dpi = 300)
+    
+    
+    plt.figure(2)
+    p_e = p_0*(np.log(-epi_rewards/(lamda_1*U)) + 1)
+    plt.semilogy(np.array(p_e))
+    plt.grid()
+    plt.title('BLER vs epochs')
+    plt.savefig('./imgs/bler.png', dpi = 300)

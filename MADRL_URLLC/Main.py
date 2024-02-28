@@ -68,7 +68,7 @@ if __name__ == "__main__":
     LR_CRITIC = 0.001
     #N_ACTIONS = 51  # Number of discrete actions
     K = 1  # Number of neighbors for KNN
-    num_episodes, time_steps = 100, 128
+    num_episodes, time_steps = 100, 512
     p_0 = 1e-5
     lamda_1 = 1000
     
@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
     #all_h = np.random.normal(loc=0, scale=1, size=(B,N,U))+ 1j*np.random.normal(loc=0, scale=1, size=(B,N,U))
     #all_h = all_h/np.sqrt(2)
-    time_ind = 2
+    time_ind = B
     all_h = TimeSequences[:,time_ind]
     all_h = np.reshape(all_h, (B,N,U))
 
